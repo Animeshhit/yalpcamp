@@ -38,11 +38,12 @@ const App = () => {
       <LoadingBar
         color="#f11946"
         progress={progress}
+        shadow={true}
         onLoaderFinished={() => setProgress(0)}
       />
       <ToastContainer
         position="top-right"
-        autoClose={500}
+        autoClose={700}
         hideProgressBar={false}
         newestOnTop={true}
         closeOnClick
