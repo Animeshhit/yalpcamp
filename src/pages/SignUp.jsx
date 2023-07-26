@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { styled } from "styled-components";
 import Logo from "../Assets/Logo.svg";
 import { Link, useNavigate } from "react-router-dom";
 import ArrowLeft from "../Assets/arrow-back-outline.svg";
@@ -27,9 +26,9 @@ const SignUp = ({ setProgress, toast }) => {
     setProgress(30);
     try {
       const data = {
-        userName: userData.userName,
-        userPassword: userData.userPassword,
         userEmail: userData.userEmail,
+        userPassword: userData.userPassword,
+        userName: userData.userName,
       };
       await dispatch(RegisterAction(data));
       toast.success("Registration SuccessFull");
