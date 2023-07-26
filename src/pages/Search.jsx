@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
-import Welcome from "../components/welcome";
+import Welcome from "../components/Welcome";
 import Card from "../components/Card";
 import Styled from "styled-components";
 import Container from "../components/Container";
