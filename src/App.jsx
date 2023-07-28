@@ -18,6 +18,9 @@ import { setDefault } from "./state/action-creator/postAction";
 const App = () => {
   const dispatch = useDispatch();
   const [progress, setProgress] = useState(0);
+  if (!localStorage.getItem("cache")) {
+    localStorage.setItem("cache", "[]");
+  }
 
   const getData = async () => {
     setProgress(30);

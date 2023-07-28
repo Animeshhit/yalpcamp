@@ -13,6 +13,7 @@ const AddComment = ({ setProgress, toast }) => {
   const { isAuth, user } = useSelector((state) => state.user);
   const isLoading = useSelector((state) => state.loading);
   const redirect = useNavigate();
+  const cache = JSON.parse(localStorage.getItem("cache"));
   const handleChange = (e) => {
     setComment(e.target.value);
   };
@@ -35,6 +36,14 @@ const AddComment = ({ setProgress, toast }) => {
             userId: user._id,
             text: comment,
           };
+          if (cache) {
+            const searchedPost =
+              cache.length > 0 ? cache.filter((elm) => elm._id != id) : null;
+            console.log(searchedPost);
+            if (searchedPost) {
+              localStorage.setItem("cache", JSON.stringify(searchedPost));
+            }
+          }
           let token = localStorage.getItem(Token);
           let response = await axios.post(
             `${BaseUrl}/api/v1/newComment?api_key=${token}&id=${id}`,

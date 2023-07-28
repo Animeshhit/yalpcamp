@@ -16,10 +16,22 @@ const View = ({ setProgress, toast }) => {
   const { user } = useSelector((state) => state.user);
   const [post, setPost] = useState(null);
   const redirect = useNavigate();
+  let cache = JSON.parse(localStorage.getItem("cache"));
   const getPost = async () => {
+    if (cache) {
+      const searchedPost =
+        cache.length > 0 ? cache.find((elm) => elm._id === id) : null;
+      if (searchedPost) {
+        setPost(searchedPost);
+        return;
+      }
+    }
     try {
       let response = await axios.get(`${BaseUrl}/api/v1/post?id=${id}`);
       setPost(response.data.post);
+      cache.push(response.data.post);
+      let dataToBeSaved = JSON.stringify(cache);
+      localStorage.setItem("cache", dataToBeSaved);
     } catch (err) {
       toast.error(err.message);
       setPost(null);
@@ -36,6 +48,13 @@ const View = ({ setProgress, toast }) => {
       );
       toast.success("comment removed!!");
       setPost(response.data.post);
+      if (cache) {
+        const searchedPost =
+          cache.length > 0 ? cache.filter((elm) => elm._id != id) : null;
+        if (searchedPost) {
+          localStorage.setItem("cache", JSON.stringify(searchedPost));
+        }
+      }
     } catch (err) {
       toast.error(err.message);
     }
