@@ -51,7 +51,7 @@ const View = ({ setProgress, toast }) => {
     return (
       <div>
         <Navbar setProgress={setProgress} toast={toast} />
-        <Container style={{ margin: "2rem 0" }}>
+        <Container style={{ margin: "2rem auto" }}>
           <ViewContainer>
             <div className="map_view">
               <div className="map">
