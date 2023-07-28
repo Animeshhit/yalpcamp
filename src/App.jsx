@@ -13,6 +13,7 @@ import { ToastContainer, toast } from "react-toastify";
 import View from "./pages/View";
 import AddPlace from "./pages/AddPlace";
 import AddComment from "./pages/AddComment";
+import { setDefault } from "./state/action-creator/postAction";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -21,6 +22,7 @@ const App = () => {
   const getData = async () => {
     setProgress(30);
     try {
+      dispatch(setDefault());
       await dispatch(getUser());
     } catch (err) {
       if (!(err.message === "You Are Not Authenticated")) {

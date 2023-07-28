@@ -3,7 +3,6 @@ import Navbar from "../components/Navbar";
 import { styled } from "styled-components";
 import MapImage from "../Assets/Map.png";
 import Container from "../components/Container";
-import DemoImage from "../Assets/Camp Images/High Quality Images/Buloy Springs.jpg";
 import Comment from "../components/Comment";
 import chatIcon from "../Assets/Chat Bubble.svg";
 import { Link, useNavigate } from "react-router-dom";
@@ -53,8 +52,8 @@ const View = ({ setProgress, toast }) => {
         <Navbar setProgress={setProgress} toast={toast} />
         <Container style={{ margin: "2rem auto" }}>
           <ViewContainer>
-            <div className="map_view">
-              <div className="map">
+            <div className="map_view_container">
+              <div className="MAP">
                 <img src={MapImage} alt="map" />
               </div>
             </div>
@@ -142,23 +141,26 @@ const ViewContainer = styled.section`
   display: flex;
   align-items: flex-start;
   gap: 1.4rem;
-  @media (max-width: 768px) {
+  @media (max-width: 1058px) {
     flex-direction: column-reverse;
     gap: 0;
     align-items: center;
   }
-  .map_view {
+  .map_view_container {
     width: 30%;
     height: 400px;
     border: 1px solid rgba(0, 0, 0, 0.2);
     border-radius: 5px;
     padding: 2rem;
+    @media (max-width: 1058px) {
+      width: 70%;
+    }
     @media (max-width: 768px) {
       width: 100%;
-      height: 320px;
+      height: 370px;
       padding: 1.4rem;
     }
-    .map {
+    .MAP {
       width: 100%;
       height: 100%;
     }
