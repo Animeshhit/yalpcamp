@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Navbar from "../components/Navbar";
 import Welcome from "../components/Welcome";
 import Card from "../components/Card";
@@ -6,30 +6,32 @@ import Styled from "styled-components";
 import Container from "../components/Container";
 import Footer from "../components/Footer";
 import HeaderMessage from "../components/HeaderMessage";
-import axios from "axios";
-import { BaseUrl } from "../config";
+import { useDispatch, useSelector } from "react-redux";
+import { getPosts } from "../state/action-creator/postAction";
 
 const Search = ({ setProgress, toast }) => {
-  const [posts, setPosts] = useState(null);
-  const getPosts = async () => {
-    try {
-      let response = await axios.get(`${BaseUrl}/api/v1/posts`);
-      setPosts(response.data.posts);
-    } catch (err) {
-      setPosts([]);
-      toast.error(err.message);
-    }
-  };
-  useEffect(() => {
+  const { posts } = useSelector((state) => state.posts);
+  const dispatch = useDispatch();
+
+  const GetPosts = async () => {
     setProgress(30);
-    getPosts();
+    try {
+      await dispatch(getPosts());
+    } catch (err) {
+      console.log(err);
+    }
     setProgress(100);
+  };
+
+  useEffect(() => {
+    GetPosts();
   }, []);
+
   return (
     <div>
       <HeaderMessage />
       <Navbar setProgress={setProgress} toast={toast} />
-      <Welcome />
+      <Welcome setProgress={setProgress} toast={toast} />
       <Grid>
         <Container>
           <div className="grid-container">

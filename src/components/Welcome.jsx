@@ -1,9 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Container from "./Container";
 import { Link } from "react-router-dom";
+import { setDefault, searchPosts } from "../state/action-creator/postAction";
+import { useDispatch } from "react-redux";
 
-const Welcome = () => {
+const Welcome = ({ setProgress, toast }) => {
+  const [keyword, setKeyword] = useState("");
+  const dispatch = useDispatch();
+  const searchPost = async (keyword) => {
+    if (keyword == "" && !keyword) {
+      return;
+    }
+    setProgress(30);
+    try {
+      dispatch(setDefault());
+      await dispatch(searchPosts(keyword));
+    } catch (err) {
+      console.log(err);
+    }
+    setProgress(100);
+  };
+  const handleChange = (e) => {
+    setKeyword(e.target.value);
+  };
   return (
     <div>
       <Container>
@@ -16,9 +36,21 @@ const Welcome = () => {
             </p>
             <div className="input_box">
               <div className="inputTag">
-                <input type="text" placeholder="Search for camps" />
+                <input
+                  onChange={handleChange}
+                  value={keyword}
+                  type="text"
+                  placeholder="Search for camps"
+                />
               </div>
-              <button type="button">Search</button>
+              <button
+                onClick={() => {
+                  searchPost(keyword);
+                }}
+                type="button"
+              >
+                Search
+              </button>
             </div>
             <Link to="/new-place">Or add your own campground</Link>
           </div>
