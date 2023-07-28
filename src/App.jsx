@@ -13,26 +13,31 @@ import { ToastContainer, toast } from "react-toastify";
 import View from "./pages/View";
 import AddPlace from "./pages/AddPlace";
 import AddComment from "./pages/AddComment";
-import { setDefault } from "./state/action-creator/postAction";
+import { Token } from "./config";
+import { isLoading } from "./state/action-creator/loading";
 
 const App = () => {
   const dispatch = useDispatch();
   const [progress, setProgress] = useState(0);
+  const token = localStorage.getItem(Token);
   if (!localStorage.getItem("cache")) {
     localStorage.setItem("cache", "[]");
   }
 
   const getData = async () => {
-    setProgress(30);
-    try {
-      dispatch(setDefault());
-      await dispatch(getUser());
-    } catch (err) {
-      if (!(err.message === "You Are Not Authenticated")) {
-        toast.error(err.message);
+    if (token) {
+      setProgress(30);
+      try {
+        await dispatch(getUser());
+      } catch (err) {
+        if (!(err.message === "You Are Not Authenticated")) {
+          toast.error(err.message);
+        }
       }
+      setProgress(100);
+    } else {
+      dispatch(isLoading(false));
     }
-    setProgress(100);
   };
 
   useEffect(() => {

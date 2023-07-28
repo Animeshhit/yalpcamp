@@ -7,7 +7,7 @@ import Container from "../components/Container";
 import Footer from "../components/Footer";
 import HeaderMessage from "../components/HeaderMessage";
 import { useDispatch, useSelector } from "react-redux";
-import { getPosts } from "../state/action-creator/postAction";
+import { getPosts, setDefault } from "../state/action-creator/postAction";
 
 const Search = ({ setProgress, toast }) => {
   const { posts } = useSelector((state) => state.posts);
@@ -16,6 +16,7 @@ const Search = ({ setProgress, toast }) => {
   const GetPosts = async () => {
     setProgress(30);
     try {
+      dispatch(setDefault());
       await dispatch(getPosts());
     } catch (err) {
       console.log(err);
