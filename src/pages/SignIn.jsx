@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { styled } from "styled-components";
 import Logo from "../Assets/Logo.svg";
 import { Link, useNavigate } from "react-router-dom";
 import ArrowLeft from "../Assets/arrow-back-outline.svg";
 import UserImage from "../Assets/User Testimonial.svg";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { LoginAction } from "../state/action-creator";
 import { SignIN, Main, Navbar, Section } from "../components/AuthPage";
 
 const SignIn = ({ setProgress, toast }) => {
   const dispatch = useDispatch();
   const redirect = useNavigate();
+  const [button, setButton] = useState(false);
   const [userData, setUserData] = useState({
     userEmail: "",
     userPassword: "",
@@ -23,9 +23,11 @@ const SignIn = ({ setProgress, toast }) => {
   const handleLogin = async (e) => {
     e.preventDefault();
     if (!(userData.userEmail && userData.userPassword)) {
-      return toast.error("Please Fill The Form Properly");
+      toast.error("Please Fill The Form Properly");
+      return;
     }
     setProgress(30);
+    setButton(true);
     try {
       const data = {
         userEmail: userData.userEmail,
@@ -44,6 +46,7 @@ const SignIn = ({ setProgress, toast }) => {
       }
     }
     setProgress(100);
+    setButton(false);
   };
   useEffect(() => {
     setProgress(100);
@@ -90,7 +93,8 @@ const SignIn = ({ setProgress, toast }) => {
                   onChange={handleUserDataChange}
                 />
               </div>
-              <button onClick={handleLogin} type="button">
+              <button disabled={button} onClick={handleLogin} type="button">
+                {button && <div className="spinner"></div>}
                 Login
               </button>
               <p>

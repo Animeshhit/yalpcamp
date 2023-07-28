@@ -10,6 +10,7 @@ import { SignIN, Main, Navbar, Section } from "../components/AuthPage";
 const SignUp = ({ setProgress, toast }) => {
   const dispatch = useDispatch();
   const redirect = useNavigate();
+  const [button, setButton] = useState(false);
   const [userData, setUserData] = useState({
     userName: "",
     userPassword: "",
@@ -21,9 +22,11 @@ const SignUp = ({ setProgress, toast }) => {
   const handleRegister = async (e) => {
     e.preventDefault();
     if (!(userData.userName && userData.userPassword && userData.userEmail)) {
-      return toast.error("Please Fill The Form Properly");
+      toast.error("Please Fill The Form Properly");
+      return;
     }
     setProgress(30);
+    setButton(true);
     try {
       const data = {
         userEmail: userData.userEmail,
@@ -42,6 +45,7 @@ const SignUp = ({ setProgress, toast }) => {
         toast.error(error.message);
       }
     }
+    setButton(false);
     setProgress(100);
   };
   useEffect(() => {
@@ -100,7 +104,8 @@ const SignUp = ({ setProgress, toast }) => {
                   onChange={handleChange}
                 />
               </div>
-              <button type="button" onClick={handleRegister}>
+              <button disabled={button} type="button" onClick={handleRegister}>
+                {button && <div className="spinner"></div>}
                 Create an Account
               </button>
               <p>

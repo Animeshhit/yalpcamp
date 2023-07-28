@@ -48,8 +48,10 @@ const Navbar = (props) => {
               </div>
               {isLoading ? (
                 <ul className={`${isOpen ? "" : "none"}`}>
-                  <li>Loading...</li>
-                  <li>Loading...</li>
+                  <div
+                    className="loadingScreen"
+                    style={{ width: "180px", height: "40px" }}
+                  ></div>
                 </ul>
               ) : isAuth ? (
                 <ul className={`${isOpen ? "" : "none"}`}>

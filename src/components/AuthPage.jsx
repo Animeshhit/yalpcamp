@@ -154,6 +154,27 @@ export const Section = styled.section`
     border-radius:4px;
     font-size:1rem;
     transition:0.3s ease;
+    &:disabled{
+      background:rgba(0,0,0,0.8);
+      position:relative;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:1rem;
+      .spinner{
+      display:flex;
+      width:25px;
+      height:25px;
+      border-radius:50%;
+      border:3px solid white;
+      border-bottom-color:transparent;
+      border-top-color:transparent;
+      animation:spin 1s ease infinite;
+      }
+    }
+    .spinner{
+      display:none;
+    }
     @media (max-width: 1050px) {
       width: 100%;
     }
