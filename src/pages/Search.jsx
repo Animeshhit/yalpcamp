@@ -8,6 +8,7 @@ import Footer from "../components/Footer";
 import HeaderMessage from "../components/HeaderMessage";
 import { useDispatch, useSelector } from "react-redux";
 import { getPosts, setDefault } from "../state/action-creator/postAction";
+import LoadingCard from "../components/LoadingCard";
 
 const Search = ({ setProgress, toast }) => {
   const { posts } = useSelector((state) => state.posts);
@@ -56,7 +57,15 @@ const Search = ({ setProgress, toast }) => {
               )
             ) : (
               <>
-                <h2 className="heading-font">Loading Posts...</h2>
+                <LoadingCard />
+                <LoadingCard />
+                <LoadingCard />
+                <LoadingCard />
+                <LoadingCard />
+                <LoadingCard />
+                <LoadingCard />
+                <LoadingCard />
+                <LoadingCard />
               </>
             )}
           </div>

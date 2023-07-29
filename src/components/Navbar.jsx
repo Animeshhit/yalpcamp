@@ -50,7 +50,7 @@ const Navbar = (props) => {
                 <ul className={`${isOpen ? "" : "none"}`}>
                   <div
                     className="loadingScreen"
-                    style={{ width: "180px", height: "40px" }}
+                    style={{ width: "180px", height: "45px" }}
                   ></div>
                 </ul>
               ) : isAuth ? (
