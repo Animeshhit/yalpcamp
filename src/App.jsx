@@ -20,9 +20,6 @@ const App = () => {
   const dispatch = useDispatch();
   const [progress, setProgress] = useState(0);
   const token = localStorage.getItem(Token);
-  if (!localStorage.getItem("cache")) {
-    localStorage.setItem("cache", "[]");
-  }
 
   const getData = async () => {
     if (token) {
