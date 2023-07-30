@@ -17,37 +17,41 @@ const AddComment = ({ setProgress, toast }) => {
     setComment(e.target.value);
   };
   const handleSubmit = async () => {
-    setProgress(30);
-    try {
-      if (isLoading) {
-        toast.error("Please Wait We Are Getting Your Authentication Status");
-      } else {
-        if (!isAuth) {
-          toast.error(
-            "Please Login With Your Account we are Redirecting You..."
-          );
-          setTimeout(() => {
-            redirect("/login");
-          }, 2000);
+    if (comment) {
+      setProgress(30);
+      try {
+        if (isLoading) {
+          toast.error("Please Wait We Are Getting Your Authentication Status");
         } else {
-          let data = {
-            userName: user.userName,
-            userId: user._id,
-            text: comment,
-          };
-          let token = localStorage.getItem(Token);
-          let response = await axios.post(
-            `${BaseUrl}/api/v1/newComment?api_key=${token}&id=${id}`,
-            data
-          );
-          toast.success("Comment Added");
-          setComment("");
+          if (!isAuth) {
+            toast.error(
+              "Please Login With Your Account we are Redirecting You..."
+            );
+            setTimeout(() => {
+              redirect("/login");
+            }, 2000);
+          } else {
+            let data = {
+              userName: user.userName,
+              userId: user._id,
+              text: comment,
+            };
+            let token = localStorage.getItem(Token);
+            let response = await axios.post(
+              `${BaseUrl}/api/v1/newComment?api_key=${token}&id=${id}`,
+              data
+            );
+            toast.success("Comment Added");
+            setComment("");
+          }
         }
+      } catch (err) {
+        toast.error("SomeThing Went Wrong Please Try again later");
       }
-    } catch (err) {
-      toast.error(err.message);
+      setProgress(100);
+    } else {
+      toast.error("You Can't Give Blank Review");
     }
-    setProgress(100);
   };
 
   useEffect(() => {

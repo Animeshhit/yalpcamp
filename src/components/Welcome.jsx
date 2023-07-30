@@ -17,7 +17,7 @@ const Welcome = ({ setProgress, toast }) => {
       dispatch(setDefault());
       await dispatch(searchPosts(keyword));
     } catch (err) {
-      console.log(err);
+      console.log("SomeThing Went Wrong");
     }
     setProgress(100);
   };

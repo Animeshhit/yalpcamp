@@ -20,6 +20,7 @@ const Search = ({ setProgress, toast }) => {
       dispatch(setDefault());
       await dispatch(getPosts());
     } catch (err) {
+      toast.error("Something Went Wrong Please Try Again Later");
       console.log(err);
     }
     setProgress(100);

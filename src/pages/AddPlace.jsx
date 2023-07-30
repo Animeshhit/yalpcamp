@@ -23,40 +23,46 @@ const AddPlace = ({ setProgress, toast }) => {
   };
 
   const handleSubmit = async () => {
-    setProgress(30);
-    try {
-      if (isLoading) {
-        toast.error("Please Wait We Are Getting Your Authentication Status");
-      } else {
-        if (!isAuth) {
-          toast.error(
-            "Please Login With Your Account we are Redirecting You..."
-          );
-          setTimeout(() => {
-            redirect("/login");
-          }, 2000);
+    if (place.title && place.price && place.image && place.description) {
+      setProgress(30);
+      try {
+        if (isLoading) {
+          toast.error("Please Wait We Are Getting Your Authentication Status");
         } else {
-          const data = {
-            ...place,
-            userId: user._id,
-            userName: user.userName,
-          };
-          let token = localStorage.getItem(Token);
-          let response = await axios.post(
-            `${BaseUrl}/api/v1/newPost?api_key=${token}`,
-            data
-          );
-          toast.success("Place Added SuccessFully");
-          setTimeout(() => {
-            redirect("/");
-          }, 2000);
+          if (!isAuth) {
+            toast.error(
+              "Please Login With Your Account we are Redirecting You..."
+            );
+            setTimeout(() => {
+              redirect("/login");
+            }, 2000);
+          } else {
+            const data = {
+              ...place,
+              userId: user._id,
+              userName: user.userName,
+            };
+            let token = localStorage.getItem(Token);
+            let response = await axios.post(
+              `${BaseUrl}/api/v1/newPost?api_key=${token}`,
+              data
+            );
+            toast.success("Place Added SuccessFully");
+            setTimeout(() => {
+              redirect("/");
+            }, 2000);
+          }
         }
+      } catch (err) {
+        let errMessage = err.response
+          ? err.response.data.message
+          : "Something Went Wrong! Please try again Later";
+        toast.error(errMessage);
       }
-    } catch (err) {
-      let errMessage = err.response ? err.response.data.message : err.message;
-      toast.error(errMessage);
+      setProgress(100);
+    } else {
+      toast.error("Please Fill The Data properly!!");
     }
-    setProgress(100);
   };
 
   useEffect(() => {

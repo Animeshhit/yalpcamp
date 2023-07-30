@@ -21,7 +21,7 @@ const View = ({ setProgress, toast }) => {
       let response = await axios.get(`${BaseUrl}/api/v1/post?id=${id}`);
       setPost(response.data.post);
     } catch (err) {
-      toast.error(err.message);
+      toast.error("Opps! Something Went Wrong Please Try Again");
       setPost(null);
       setTimeout(() => {
         redirect("/");
@@ -37,7 +37,7 @@ const View = ({ setProgress, toast }) => {
       toast.success("comment removed!!");
       setPost(response.data.post);
     } catch (err) {
-      toast.error(err.message);
+      toast.error("Opps! Something Went Wrong!! Please Try Again later");
     }
     setProgress(100);
   };

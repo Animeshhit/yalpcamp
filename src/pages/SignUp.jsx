@@ -42,7 +42,7 @@ const SignUp = ({ setProgress, toast }) => {
       if (error.response && error.response.status === 400) {
         toast.error(error.response.data.error);
       } else {
-        toast.error(error.message);
+        toast.error("Something went wrong please try again later");
       }
     }
     setButton(false);

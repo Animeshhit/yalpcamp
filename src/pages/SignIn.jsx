@@ -42,7 +42,7 @@ const SignIn = ({ setProgress, toast }) => {
       if (error.response && error.response.status === 401) {
         toast.error(error.response.data.error);
       } else {
-        toast.error(error.message);
+        toast.error("Something went wrong Please try again later");
       }
     }
     setProgress(100);

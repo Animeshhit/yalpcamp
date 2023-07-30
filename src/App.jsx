@@ -28,7 +28,7 @@ const App = () => {
         await dispatch(getUser());
       } catch (err) {
         if (!(err.message === "You Are Not Authenticated")) {
-          toast.error(err.message);
+          toast.error("Something went wrong Please try again later");
         }
       }
       setProgress(100);
