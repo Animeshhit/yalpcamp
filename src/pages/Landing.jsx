@@ -9,8 +9,8 @@ import Booking from "../Assets/Booking.svg";
 import plumGuide from "../Assets/Plum Guide.svg";
 import LandingImage from "../Assets/Hero Image.jpg";
 import { useSelector } from "react-redux";
-import { Player, Controls } from "@lottiefiles/react-lottie-player";
 import HeaderMessage from "../components/HeaderMessage";
+import Loading from "../components/Loading";
 
 export default function Landing({ setProgress }) {
   const { isAuth } = useSelector((state) => state.user);
@@ -19,21 +19,7 @@ export default function Landing({ setProgress }) {
     setProgress(100);
   }, []);
   if (isLoading) {
-    return (
-      <LoaderContainer>
-        <Player
-          autoplay
-          loop
-          src="https://lottie.host/c8390322-2403-4d0b-862f-5080b910e569/TEwMVw0r8Z.json"
-          style={{ height: "50px", width: "50px" }}
-        >
-          <Controls
-            visible={false}
-            buttons={["play", "repeat", "frame", "debug"]}
-          />
-        </Player>
-      </LoaderContainer>
-    );
+    return <Loading />;
   } else {
     if (isAuth) {
       return <Navigate to={"/explore"} replace={true} />;
@@ -213,11 +199,4 @@ const LandingBody = styled.section`
       border-radius: 8px;
     }
   }
-`;
-
-const LoaderContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
 `;
