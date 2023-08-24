@@ -9,6 +9,7 @@ import { BaseUrl, Token } from "../config";
 
 const AddPlace = ({ setProgress, toast }) => {
   const { isAuth, user } = useSelector((state) => state.user);
+  const [isBtnDisabled, setIsBtnDisabled] = useState(false);
   const isLoading = useSelector((state) => state.loading);
   const redirect = useNavigate();
   const [place, setPlace] = useState({
@@ -29,10 +30,12 @@ const AddPlace = ({ setProgress, toast }) => {
         if (isLoading) {
           toast.error("Please Wait We Are Getting Your Authentication Status");
         } else {
+          setIsBtnDisabled(true);
           if (!isAuth) {
             toast.error(
               "Please Login With Your Account we are Redirecting You..."
             );
+            setIsBtnDisabled(false);
             setTimeout(() => {
               redirect("/login");
             }, 2000);
@@ -48,6 +51,7 @@ const AddPlace = ({ setProgress, toast }) => {
               data
             );
             toast.success("Place Added SuccessFully");
+            setIsBtnDisabled(false);
             setTimeout(() => {
               redirect("/");
             }, 2000);
@@ -59,6 +63,7 @@ const AddPlace = ({ setProgress, toast }) => {
           : "Something Went Wrong! Please try again Later";
         toast.error(errMessage);
       }
+      setIsBtnDisabled(false);
       setProgress(100);
     } else {
       toast.error("Please Fill The Data properly!!");
@@ -120,7 +125,7 @@ const AddPlace = ({ setProgress, toast }) => {
               placeholder="Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex aliquam ab eum aperiam veniam cum animi molestiae omnis debitis magnam, maxime saepe natus, illum fugit, hic ipsum sed quidem id?"
             />
           </div>
-          <button type="button" onClick={handleSubmit}>
+          <button disabled={isBtnDisabled} type="button" onClick={handleSubmit}>
             Add Campground
           </button>
         </Container>

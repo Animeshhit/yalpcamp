@@ -9,6 +9,7 @@ import { BaseUrl, Token } from "../config";
 
 const AddComment = ({ setProgress, toast }) => {
   const [comment, setComment] = useState("");
+  const [idDisable, setIsDisable] = useState(false);
   const { id } = useParams();
   const { isAuth, user } = useSelector((state) => state.user);
   const isLoading = useSelector((state) => state.loading);
@@ -23,10 +24,12 @@ const AddComment = ({ setProgress, toast }) => {
         if (isLoading) {
           toast.error("Please Wait We Are Getting Your Authentication Status");
         } else {
+          setIsDisable(true);
           if (!isAuth) {
             toast.error(
               "Please Login With Your Account we are Redirecting You..."
             );
+            setIsDisable(false);
             setTimeout(() => {
               redirect("/login");
             }, 2000);
@@ -43,11 +46,13 @@ const AddComment = ({ setProgress, toast }) => {
             );
             toast.success("Comment Added");
             setComment("");
+            setIsDisable(false);
           }
         }
       } catch (err) {
         toast.error("SomeThing Went Wrong Please Try again later");
       }
+      setIsDisable(false);
       setProgress(100);
     } else {
       toast.error("You Can't Give Blank Review");
@@ -75,7 +80,7 @@ const AddComment = ({ setProgress, toast }) => {
               placeholder="@username Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex aliquam ab eum aperiam veniam cum animi molestiae omnis debitis magnam, maxime saepe natus, illum fugit, hic ipsum sed quidem id?"
             />
           </div>
-          <button onClick={handleSubmit} type="button">
+          <button disabled={idDisable} onClick={handleSubmit} type="button">
             Post Comment
           </button>
         </Container>
