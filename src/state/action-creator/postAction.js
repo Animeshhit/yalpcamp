@@ -9,7 +9,7 @@ export const getPosts = () => async (dispatch) => {
       type: "GET_POST_SUCCESS",
       payload: response.data.posts,
     });
-    return response.data.posts;
+    return response.data.posts.reverse();
   } catch (err) {
     let errMessage = err.response ? err.response.data.message : err.message;
     dispatch({

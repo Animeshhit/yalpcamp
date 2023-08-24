@@ -13,8 +13,10 @@ const Card = (props) => {
   return (
     <CardContainer>
       <img loading="lazy" src={props.image} alt="demo image of campground" />
-      <h2 className="heading-font">{props.title}</h2>
-      <p>{trimWord(props.description)}</p>
+      <div>
+        <h2 className="heading-font">{props.title}</h2>
+        <p>{trimWord(props.description)}</p>
+      </div>
       <button type="button">
         <Link to={`/view/${props.id}`}>View Campground</Link>
       </button>
@@ -27,6 +29,10 @@ const CardContainer = Styled.div`
   border:1px solid rgba(0,0,0,0.3);
   border-radius:4px;
   background:white;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  gap:0.5rem;
   img{
     width:100%;
     border-radius:4px;
