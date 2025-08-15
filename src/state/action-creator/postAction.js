@@ -3,7 +3,7 @@ import { BaseUrl } from "../../config";
 
 export const getPosts = () => async (dispatch) => {
   try {
-    const GET_URL = `${BaseUrl}/api/v1/posts`;
+    const GET_URL = `/api/v1/posts`;
     const response = await axios.get(GET_URL);
     dispatch({
       type: "GET_POST_SUCCESS",
@@ -22,7 +22,7 @@ export const getPosts = () => async (dispatch) => {
 
 export const searchPosts = (keyword) => async (dispatch) => {
   try {
-    const GET_URL = `${BaseUrl}/api/v1/post/search?q=${keyword}`;
+    const GET_URL = `/api/v1/post/search?q=${keyword}`;
     const response = await axios.get(GET_URL);
     dispatch({
       type: "SEARCH_POST_SUCCESS",
