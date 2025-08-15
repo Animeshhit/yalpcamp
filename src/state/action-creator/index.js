@@ -6,7 +6,7 @@ import { BaseUrl, Token } from "../../config";
 export const LoginAction = (user) => async (dispatch) => {
   store.dispatch(isLoading(true));
   try {
-    const POST_URL = `/api/v1/login`;
+    const POST_URL = `${BaseUrl}/api/v1/login`;
     const response = await axios.post(POST_URL, user);
     localStorage.setItem(Token, response.data.token);
     dispatch({
@@ -33,7 +33,7 @@ export const LoginAction = (user) => async (dispatch) => {
 export const RegisterAction = (user) => async (dispatch) => {
   store.dispatch(isLoading(true));
   try {
-    const POST_URL = `$/api/v1/register`;
+    const POST_URL = `${BaseUrl}/api/v1/register`;
     const response = await axios.post(POST_URL, user);
     localStorage.setItem(Token, response.data.token);
     dispatch({
@@ -76,7 +76,7 @@ export const getUser = () => async (dispatch) => {
   store.dispatch(isLoading(true));
   try {
     let token = localStorage.getItem(Token);
-    const GET_USER = `/api/v1/user?api_key=${token}`;
+    const GET_USER = `${BaseUrl}/api/v1/user?api_key=${token}`;
     const response = await axios.get(GET_USER);
     dispatch({
       type: "GET_USER_SUCCESS",
